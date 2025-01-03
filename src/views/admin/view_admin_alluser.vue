@@ -9,6 +9,7 @@
           <th scope="col">Email</th>
           <th scope="col">Role</th>
           <th scope="col">Active</th>
+          <th scope="col">Verify mail</th>
           <th scope="col">Detail</th>
         </tr>
       </thead>
@@ -25,6 +26,10 @@
           <td>
             <span v-if="user.isActive" style="color: green">Đang hoạt động</span>
             <span v-else style="color: red">Ngừng hoạt động</span>
+          </td>
+          <td>
+            <span v-if="user.isVerify" style="color: green">Đã xác minh</span>
+            <span v-else style="color: red">Đang xác minh</span>
           </td>
           <td>
             <a href="" class="btn btn-primary">Show</a>

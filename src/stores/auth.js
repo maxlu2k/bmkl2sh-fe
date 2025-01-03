@@ -7,7 +7,6 @@ export const useAuthStore = defineStore('auth', {
   state: () => ({
     isLogin: !!Cookies.get('accessToken'), // Kiểm tra token từ cookie
     username: Cookies.get('username') || '',
-    role: Cookies.get('role') || '',
     errorMessage: '', // Thêm errorMessage để hiển thị lỗi khi cần
   }),
 
@@ -22,7 +21,6 @@ export const useAuthStore = defineStore('auth', {
       Cookies.set('accessToken', accessToken, { expires: 1 / 24 })
       Cookies.set('refreshToken', refreshToken, { expires: 1 / 24 })
       Cookies.set('username', this.username, { expires: 3 })
-      Cookies.set('role', this.role, { expires: 3 })
     },
 
     async logout() {
@@ -48,8 +46,6 @@ export const useAuthStore = defineStore('auth', {
       Cookies.remove('accessToken')
       Cookies.remove('refreshToken')
       Cookies.remove('username')
-      Cookies.remove('role')
-
       window.location.href = '/login'
     },
 

@@ -1,11 +1,12 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import HomeView from '../views/HomeView.vue'
 import viewLogin from '../views/auth/view_login.vue'
+import viewRegister from '../views/auth/view_register.vue'
 import viewAdminDashboard from '../views/admin/view_admin_dashboard.vue'
 import viewAdminAllUser from '../views/admin/view_admin_alluser.vue'
 import viewUserProfile from '../views/user/view_user_profile.vue'
-// import { jwtDecode } from 'jwt-decode'
 import Cookies from 'js-cookie'
+import { jwtDecode } from 'jwt-decode'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -20,6 +21,12 @@ const router = createRouter({
       name: 'login',
       component: viewLogin,
       meta: { title: 'Login' },
+    },
+    {
+      path: '/register',
+      name: 'register',
+      component: viewRegister,
+      meta: { title: 'register' },
     },
     {
       path: '/admin',
@@ -49,17 +56,18 @@ router.beforeEach(async (to, from, next) => {
 
   if (to.meta.requiresAuth) {
     if (!token) {
-      next({ name: 'login', query: { redirect: to.fullPath } })
+      next({ name: 'login' })
     } else {
-      const userRole = Cookies.get('role')
-      if (to.meta.role && to.meta.role !== userRole) {
-        next({ name: 'viewUserProfile' }) // Nếu không có quyền, chuyển về trang user profile
+      const decoded = jwtDecode(token)
+      const roles = decoded.scope || []
+      if (to.meta.role && !roles.includes(to.meta.role)) {
+        next({ name: 'viewUserProfile' })
       } else {
-        next() // Nếu đủ quyền, tiếp tục
+        next()
       }
     }
   } else {
-    next() // Nếu route không yêu cầu xác thực, tiếp tục
+    next()
   }
 })
 
