@@ -34,8 +34,15 @@
           placeholder="re-enter password">
       </div>
       <div class="mb-3 form-check">
-        <input type="checkbox" name="showpw" class="form-check-input showpw" id="showPass" v-model="showPassword">
-        <label class="form-check-label" for="showPass">Check me out</label>
+        <div class="row">
+          <div class="col-8">
+            <input type="checkbox" name="showpw" class="form-check-input showpw" id="showPass" v-model="showPassword">
+            <label class="form-check-label" for="showPass">Check me out</label>
+          </div>
+          <div class="col-4">
+            <a href="/login" class="text-end">Login?</a>
+          </div>
+        </div>
       </div>
       <button class="btn btn-success btnlogin" type="submit">Submit</button>
       <!-- <p v-if="errorMessage" class="error">{{ errorMessage }}</p> -->
@@ -46,7 +53,7 @@
 <script setup>
 import { ref } from 'vue'
 import Axios from '../../utils/axios'
-import Cookies from 'js-cookie'
+// import Cookies from 'js-cookie'
 import { useRouter } from 'vue-router'
 const showPassword = ref(false)
 const firstName = ref("")
