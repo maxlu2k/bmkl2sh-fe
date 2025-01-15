@@ -13,33 +13,50 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      name: 'home',
+      name: 'shopbm',
       component: HomeView,
+      meta: { title: 'Bình Minh' },
     },
     {
       path: '/login',
       name: 'login',
       component: viewLogin,
-      meta: { title: 'Login' },
+      meta: { title: 'Đăng Nhập' },
     },
     {
       path: '/register',
       name: 'register',
       component: viewRegister,
-      meta: { title: 'register' },
+      meta: { title: 'Đăng Ký' },
     },
     {
       path: '/admin',
       name: 'viewAdmin',
       component: viewAdminDashboard,
       meta: { title: 'ADMIN', requiresAuth: true, role: 'ADMIN' },
+      children: [
+        {
+          path: 'alluser',
+          name: 'viewAllUser',
+          component: viewAdminAllUser,
+          meta: { title: 'Quản lý user', requiresAuth: true, role: 'ADMIN' },
+        },
+      ],
     },
+    // {
+    //   path: '/admin/alluser',
+    //   name: 'viewAllUser',
+    //   component: viewAdminAllUser,
+    //   meta: { title: 'Quản lý user', requiresAuth: true, role: 'ADMIN' },
+    // },
+
     {
-      path: '/admin/alluser',
-      name: 'viewAllUser',
-      component: viewAdminAllUser,
-      meta: { title: 'Quản lý user', requiresAuth: true, role: 'ADMIN' },
+      path: '/user',
+      name: 'viewUserProfile',
+      component: viewUserProfile,
+      meta: { title: 'User profile', requiresAuth: true },
     },
+
     {
       path: '/user-profile',
       name: 'viewUserProfile',
@@ -61,7 +78,7 @@ router.beforeEach(async (to, from, next) => {
       const decoded = jwtDecode(token)
       const roles = decoded.scope || []
       if (to.meta.role && !roles.includes(to.meta.role)) {
-        next({ name: 'viewUserProfile' })
+        next({ name: 'shopbm' })
       } else {
         next()
       }

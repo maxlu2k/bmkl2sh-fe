@@ -1,28 +1,42 @@
 <template>
-  <div class="pt-3">
-    <div class="card" style="width: 18rem">
-      <img src="/img/avar/long.jpg" class="card-img-top" alt="..." />
-      <div class="card-body">
-        <h5 class="card-title">Welcome {{ user.username }} !!</h5>
-        <p class="card-text">
-          Roles:
-          <span v-for="(role, index) in user.roles" :key="index">
-            {{ role.name }}<span v-if="index < user.roles.length - 1">, </span>
-          </span>
-        </p>
-        <p class="card-text">
-          Description:
-          <span v-for="(role, index) in user.roles" :key="index">
-            {{ role.description }}<span v-if="index < user.roles.length - 1">, </span>
-          </span>
-        </p>
-        <a href="#" class="btn btn-primary" @click.prevent="goToAdminPage">Quản lý User</a>
+  <div class="row">
+    <div class="col-3">
+      <adminlayout />
+    </div>
+    <div class="col-9">
+      <div class="row">
+        <div class="col-5 pt-3" style="background-color: chocolate;">
+          <div class="card" style="width: 18rem">
+            <img src="/img/avar/long.jpg" class="card-img-top" alt="..." />
+            <div class="card-body">
+              <h5 class="card-title">Welcome {{ user.username }} !!</h5>
+              <p class="card-text">
+                Roles:
+                <span v-for="(role, index) in user.roles" :key="index">
+                  {{ role.name }}<span v-if="index < user.roles.length - 1">, </span>
+                </span>
+              </p>
+              <p class="card-text">
+                Description:
+                <span v-for="(role, index) in user.roles" :key="index">
+                  {{ role.description }}<span v-if="index < user.roles.length - 1">, </span>
+                </span>
+              </p>
+              <a href="#" class="btn btn-primary" @click.prevent="goToAdminPage">Quản lý User</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-8" style="background-color: brown;">
+          a
+          <router-view />
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script setup>
+import adminlayout from './layout/slidebar_admin.vue'
 import { ref, onMounted } from 'vue'
 import Axios from '../../utils/axios'
 import Cookies from 'js-cookie'

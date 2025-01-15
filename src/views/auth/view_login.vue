@@ -63,16 +63,16 @@ const handleLogin = async () => {
     // Giải mã token và lấy role
     const decoded = jwtDecode(accessToken)
     const role = decoded.scope || []
-    const user = decoded.sub
+    // const user = decoded.sub
+    // Cookies.set('username', user, { expires: 3 })
 
-    Cookies.set('username', user, { expires: 3 })
     authStore.login(accessToken, refreshToken)
 
     // Điều hướng dựa trên role
     if (role.includes('ADMIN')) {
       router.push('/admin')
     } else {
-      router.push('/user-profile')
+      router.push('/')
     }
   } catch (error) {
     errorMessage.value = error.response?.data?.message || 'Invalid login information. Please try again.'
@@ -93,9 +93,7 @@ const handleLogin = async () => {
   padding: 24px;
   border-radius: 20px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 5%;
+  margin: 11% auto 11% auto
 }
 
 .error {

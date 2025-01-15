@@ -23,6 +23,7 @@
         <div v-if="authStore.isLogin" class="d-flex header_infor">
           <img :src="authStore.avartar || '/img/avar/avartar-default.png'" alt="Avatar" class="avartar_header" />
           <p>{{ authStore.username }}</p>
+          <p>{{ authStore.lastName }}</p>
         </div>
 
         <form v-else class="d-flex">
@@ -32,7 +33,7 @@
 
         <div>
           <a v-if="authStore.isLogin" href="#" @click.prevent="logout" class="btn btn-danger">Logout</a>
-          <a v-else href="/login" class="btn btn-primary">Login</a>
+          <a v-else href="/login" class="btn btn-success">Login</a>
         </div>
       </div>
     </div>

@@ -6,7 +6,7 @@ import Axios from '../utils/axios'
 export const useAuthStore = defineStore('auth', {
   state: () => ({
     isLogin: !!Cookies.get('accessToken'), // Kiểm tra token từ cookie
-    username: Cookies.get('username') || '',
+    // username: Cookies.get('username') || '',
     errorMessage: '', // Thêm errorMessage để hiển thị lỗi khi cần
   }),
 
@@ -18,9 +18,9 @@ export const useAuthStore = defineStore('auth', {
       this.role = decoded.scope
 
       // Lưu vào cookie
-      Cookies.set('accessToken', accessToken, { expires: 1 / 24 })
-      Cookies.set('refreshToken', refreshToken, { expires: 1 / 24 })
-      Cookies.set('username', this.username, { expires: 3 })
+      Cookies.set('accessToken', accessToken, { expires: 7 })
+      Cookies.set('refreshToken', refreshToken, { expires: 7 })
+      // Cookies.set('username', this.username, { expires: 3 })
     },
 
     async logout() {

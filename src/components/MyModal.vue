@@ -14,6 +14,7 @@ defineEmits(['close'])
 
 <style scoped>
 .vue-modal {
+  z-index: 99;
   position: fixed;
   top: 0;
   left: 0;

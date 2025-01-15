@@ -1,9 +1,8 @@
-<script setup>
-import viewHome from '../components/TheWelcome.vue'
-</script>
-
 <template>
-  <main>
-    <viewHome />
-  </main>
+  <div>
+    <h1>homeview</h1>
+  </div>
 </template>
+<script setup>
+</script>
+<style scoped></style>
