@@ -1,7 +1,7 @@
 <script setup>
 import { useAuthStore } from './stores/auth'
-import Header from './views/partials/view_header.vue'
-import Footer from './views/partials/view_footer.vue'
+import Header from './views/partials/view-header.vue'
+import Footer from './views/partials/view-footer.vue'
 import { computed, watch } from 'vue';
 import { useRoute } from 'vue-router';
 import 'bootstrap-icons/font/bootstrap-icons.css';

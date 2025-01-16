@@ -15,9 +15,7 @@
         </button>
         <div class="collapse" id="home-collapse">
           <ul class="btn-toggle-nav list-unstyled ps-4">
-            <li><a href="#" class="link-light">Overview</a></li>
-            <li><a href="#" class="link-light">Updates</a></li>
-            <li><a href="#" class="link-light">Reports</a></li>
+            <li><a href="#" class="text-decoration-none">Overview</a></li>
           </ul>
         </div>
       </li>
@@ -28,26 +26,45 @@
         </button>
         <div class="collapse" id="home-collapse2">
           <ul class="btn-toggle-nav list-unstyled ps-4">
-            <li><a href="#" class="link-light">list</a></li>
-            <li><a href="#" class="link-light">list</a></li>
-            <li><a href="#" class="link-light">list</a></li>
+            <li><a href="#" class="text-decoration-none">Thống Kê Và Báo Cáo</a></li>
           </ul>
         </div>
       </li>
       <li>
-        <button class="nav-link text-white">
+        <button class="btn btn-toggle align-items-center text-white w-100 text-start" data-bs-toggle="collapse"
+          data-bs-target="#home-collapse3" aria-expanded="false">
           <i class="bi bi-table me-2"></i> Orders
         </button>
+        <div class="collapse" id="home-collapse3">
+          <ul class="btn-toggle-nav list-unstyled ps-4">
+            <li><a href="#" class="text-decoration-none">Hoá Đơn</a></li>
+          </ul>
+        </div>
       </li>
       <li>
-        <button class="nav-link text-white">
+        <button class="btn btn-toggle align-items-center text-white w-100 text-start" data-bs-toggle="collapse"
+          data-bs-target="#home-collapse4" aria-expanded="false">
           <i class="bi bi-grid-3x3-gap me-2"></i> Products
         </button>
+        <div class="collapse" id="home-collapse4">
+          <ul class="btn-toggle-nav list-unstyled ps-4">
+            <li><a href="#" class="text-decoration-none">Quản Lý Sản Phẩm</a></li>
+          </ul>
+        </div>
       </li>
       <li>
-        <button class="nav-link text-white">
-          <i class="bi bi-people me-2"></i> Customers
+        <button class="btn btn-toggle align-items-center text-white w-100 text-start" data-bs-toggle="collapse"
+          data-bs-target="#home-collapse5" aria-expanded="false">
+          <i class="bi bi-people me-2"></i> User
         </button>
+        <div class="collapse" id="home-collapse5">
+          <ul class="btn-toggle-nav list-unstyled ps-4">
+            <li><router-link to="/admin/allusers" class="text-decoration-none">Quản Lý Người Dùng</router-link></li>
+            <li><router-link to="/admin/authorize" class="text-decoration-none">Quản Lý Phân Quyền</router-link>
+            </li>
+            <li><router-link to="/admin/allBills" class="text-decoration-none">Quản Lý Hoá Đơn</router-link></li>
+          </ul>
+        </div>
       </li>
     </ul>
 
@@ -55,23 +72,42 @@
       <hr class="text-secondary">
       <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1"
         data-bs-toggle="dropdown" aria-expanded="false">
-        <img src="https://github.com/mdo.png" alt="User" width="32" height="32" class="rounded-circle me-2">
-        <strong>Admin</strong>
+        <img :src="authStore.avartar || '/img/avar/avartar-default.png'" alt="avatar"
+          class="avartar_heade rounded-circle me-2" width="32" height="32" />
+        <strong>
+          {{ authStore.username }}
+        </strong>
       </a>
       <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
-        <li><a class="dropdown-item" href="#">New project...</a></li>
         <li><a class="dropdown-item" href="#">Settings</a></li>
-        <li><a class="dropdown-item" href="#">Profile</a></li>
+        <li><router-link to="/admin/profile" class="text-decoration-none dropdown-item">Profile</router-link>
+        </li>
         <li>
           <hr class="dropdown-divider">
         </li>
-        <li><a class="dropdown-item" href="#">Sign out</a></li>
+        <li><a class="dropdown-item" href="#" @click.prevent="logout">Sign out</a></li>
       </ul>
     </div>
   </div>
+
 </template>
 
 <script setup>
+import { useAuthStore } from '@/stores/auth'
+import { onMounted } from 'vue'
+
+// Sử dụng Pinia store
+const authStore = useAuthStore()
+
+// Kiểm tra trạng thái đăng nhập khi load trang
+onMounted(() => {
+  authStore.checkLoginStatus()
+})
+
+// Hàm logout
+const logout = () => {
+  authStore.logout()
+}
 </script>
 
 <style scoped>
@@ -97,7 +133,7 @@
 }
 
 .btn-toggle:hover {
-  color: #0dcaf0;
+  color: orangered;
 }
 
 .nav-link {
@@ -108,7 +144,7 @@
 }
 
 .nav-link:hover {
-  color: #0dcaf0;
+  color: orangered;
 }
 
 .btn-toggle-nav a {
@@ -120,6 +156,6 @@
 }
 
 .btn-toggle-nav a:hover {
-  color: #0dcaf0;
+  color: orangered;
 }
 </style>

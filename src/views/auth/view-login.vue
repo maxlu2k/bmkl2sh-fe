@@ -70,7 +70,7 @@ const handleLogin = async () => {
 
     // Điều hướng dựa trên role
     if (role.includes('ADMIN')) {
-      router.push('/admin')
+      router.push('/admin/statics')
     } else {
       router.push('/')
     }

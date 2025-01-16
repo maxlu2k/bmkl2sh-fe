@@ -8,8 +8,8 @@
   </div>
 </template>
 <script setup>
-import Header from '../partials/view_header.vue'
-import Footer from '../partials/view_footer.vue'
+import Header from '../partials/view-header.vue'
+import Footer from '../partials/view-footer.vue'
 // import { useRoute } from 'vue-router';
 // const route = useRoute();
 </script>
