@@ -3,11 +3,15 @@
     <div class="row">
       <div class="col-3 pt-3 sidebar-container">
         <div class="card profile-card">
-          <img :src="user.avartar || '/img/avar/avartar-default.png'" class="card-img-top" alt="User Avatar" />
-          <div class="d-flex justify-content-center mt-2">
-            <button class="btn btn-sm btn-outline-warning edit-btn">
-              <i class="bi bi-pen me-2"></i>Edit Image
-            </button>
+          <div class="d-flex align-items-center mt-2">
+            <img :src="user.avartar || '/img/avar/avartar-default.png'" class="card-img-top" alt="User Avatar" />
+            <div class="ms-3">
+              <p class="text-start mb-1 text-black">{{ user.username }}</p>
+              <router-link to="/admin/profile/editProfile" class="text-decoration-none text-primary"
+                style="font-size: 11px;">
+                <i class="bi bi-pen me-2"></i>Chỉnh sửa hồ sơ
+              </router-link>
+            </div>
           </div>
           <ul class="nav flex-column mb-auto menu-list">
             <li class="mb-2">
@@ -113,7 +117,7 @@
           </ul>
         </div>
       </div>
-      <div class="col-9" style="border: 1px solid black;">
+      <div class="col-9 pt-3 ">
         <router-view />
       </div>
     </div>
@@ -165,11 +169,10 @@ onMounted(() => {
 
 .card-img-top {
   border-radius: 50%;
-  margin-bottom: 15px;
-  width: 150px;
-  height: 150px;
+  width: 60px;
+  height: 60px;
   object-fit: cover;
-  margin: 10px auto;
+  margin: 10px 10px;
 }
 
 .edit-btn {

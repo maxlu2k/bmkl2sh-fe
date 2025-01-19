@@ -26,7 +26,7 @@
         </button>
         <div class="collapse" id="home-collapse2">
           <ul class="btn-toggle-nav list-unstyled ps-4">
-            <li><a href="#" class="text-decoration-none">Thống Kê Và Báo Cáo</a></li>
+            <li><router-link to="/admin/statics" class="text-decoration-none">Thống Kê Và Báo Cáo</router-link></li>
           </ul>
         </div>
       </li>
