@@ -157,14 +157,17 @@ onMounted(() => {
 <style scoped>
 .sidebar-container {
   /* background-color: chocolate; */
-  height: 100vh;
+  height: auto;
   overflow-y: auto;
 }
 
 .profile-card {
   margin: 0 auto;
   max-width: 18rem;
+  min-height: 1080px;
   border: 0;
+  background-color: white;
+  border-radius: 10px;
 }
 
 .card-img-top {

@@ -18,7 +18,6 @@ import adminlayout from '@/views/admin/layout/slidebar-admin.vue'
 <style scoped>
 .content_admin {
   overflow-y: auto;
-  /* Nếu nội dung quá dài, có thể cuộn */
   min-height: 100vh;
 }
 

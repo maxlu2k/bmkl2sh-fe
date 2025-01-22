@@ -153,8 +153,11 @@ function validateDate(event) {
   // Kiểm tra định dạng: dd/MM/yyyy
   const regex = /^(\d{2})\/(\d{2})\/(\d{4})$/;
   if (!regex.test(input)) {
-    alertMessage.value = "Ngày không hợp lệ. Vui lòng nhập theo định dạng dd/MM/yyyy.";
-    alertType.value = "danger";
+    alertMessage.value = "";
+    setTimeout(() => {
+      alertMessage.value = "Ngày không hợp lệ. Vui lòng nhập theo định dạng dd/MM/yyyy.";
+      alertType.value = "danger";
+    }, 0)
   } else {
     alertMessage.value = "";
   }
@@ -167,8 +170,11 @@ onMounted(() => {
 <!-- margin: 6em auto 10px auto; -->
 <style scoped>
 .my_infor {
-  height: 100vh;
-  overflow-y: auto;
+  height: 100%;
+  padding-bottom: 30px;
+  padding-top: 1px;
+  background-color: white;
+  border-radius: 10px;
 }
 
 .form_infor {

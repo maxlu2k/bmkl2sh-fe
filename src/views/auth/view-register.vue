@@ -53,7 +53,6 @@
 <script setup>
 import { ref } from 'vue'
 import Axios from '../../utils/axios'
-// import Cookies from 'js-cookie'
 import { useRouter } from 'vue-router'
 const showPassword = ref(false)
 const firstName = ref("")

@@ -80,7 +80,8 @@
       </a>
       <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
         <li><a class="dropdown-item" href="#">Settings</a></li>
-        <li><router-link to="/admin/profile" class="text-decoration-none dropdown-item">Profile</router-link>
+        <li><router-link to="/admin/profile/editProfile"
+            class="text-decoration-none dropdown-item">Profile</router-link>
         </li>
         <li>
           <hr class="dropdown-divider">

@@ -2,20 +2,25 @@
   <div>
     <div class="list-users">
       <div class="row">
-        <div class="col">
+        <div class="col-8">
           <h5><b>All Users</b></h5>
         </div>
-        <div class="col text-end">
-          <a class="btn btn-outline-primary text-decoration-none" href="/admin"><span aria-hidden="true">&lt;</span>
-            Previus</a>
+        <div class="col-4 text-end d-flex">
+          <input class="form-control search-width me-2" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-success me-2" type="submit">Search</button>
+          <button class="btn btn-outline-primary text-decoration-none" @click="openModal(null)"><span
+              aria-hidden="true">&#43;</span>
+            Add</button>
         </div>
       </div>
+      <hr>
       <table class="table table-striped">
         <thead>
           <tr>
             <th scope="col">ID</th>
             <th scope="col">Username</th>
             <th scope="col">Email</th>
+            <th scope="col">BirthDay</th>
             <th scope="col">Role</th>
             <th scope="col">Active</th>
             <th scope="col">Verify mail</th>
@@ -27,6 +32,7 @@
             <th scope="row">{{ user.id }}</th>
             <td>{{ user.username }}</td>
             <td>{{ user.email }}</td>
+            <td>{{ formatDate(user.dateOfBirth) }}</td>
             <td>
               <span v-for="(role, index) in user.roles" :key="index">
                 {{ role.name }}<span v-if="index < user.roles.length - 1">, </span>
@@ -107,6 +113,10 @@
             <label class="form-label"><strong>Phone Number:</strong></label>
             <input class="form-control" type="text" v-model="editedUser.phoneNumber" />
           </div>
+          <div class="mb-3">
+            <label class="form-label"><strong>Date of birth:</strong></label>
+            <input class="form-control" type="text" v-model="editedUser.dateOfBirth" @input="validateDate" />
+          </div>
 
           <div class="mb-3">
             <div class="row">
@@ -137,9 +147,12 @@
           <div class="mb-3">
             <button class="btn btn-outline-primary" type="submit">Cập nhật</button>
             <button class="btn btn-outline-danger" type="button" @click="closeModal">Đóng</button>
+            <AlertMessage v-if="alertMessage" :message="alertMessage" :type="alertType" :duration="3000" />
           </div>
         </form>
       </MyModal>
+      <AlertMessage v-if="alertMessagePassword" :message="alertMessagePassword" :type="alertTypeMessagePassword"
+        :duration="4000" />
       <AlertMessage v-if="alertMessage" :message="alertMessage" :type="alertType" :duration="3000" />
     </div>
 
@@ -151,6 +164,7 @@ import Axios from '@/utils/axios'
 import Cookies from 'js-cookie'
 import MyModal from '@/components/MyModal.vue'
 import AlertMessage from "@/components/AlertMessage.vue";
+import { format } from "date-fns";
 const users = ref([])
 const showModal = ref(false)
 const selectedUser = ref({})
@@ -160,6 +174,18 @@ const size = ref(5)
 const totalPage = ref(0)
 const alertMessage = ref("");
 const alertType = ref("success"); // success, danger, warning, info
+const alertMessagePassword = ref("");
+const alertTypeMessagePassword = ref("success");
+
+const formatDate = (date) => {
+  if (!date) return "";
+  try {
+    return format(new Date(date), "dd/MM/yyyy");
+  } catch (error) {
+    console.error("Lỗi định dạng ngày:", error);
+    return date; // Trả về giá trị gốc nếu có lỗi
+  }
+};
 
 async function fetchUserData() {
   const token = Cookies.get('accessToken')
@@ -176,8 +202,7 @@ async function fetchUserData() {
     const data = response.data
     users.value = data.content
     totalPage.value = data.totalPages
-    // console.log(users)
-    // console.log(totalPage.value)
+
   } catch (error) {
     console.error(error)
   }
@@ -221,9 +246,29 @@ function goToPage(targetPage) {
 
 // Hiển thị modal và gán thông tin user khi nhấn nút "show"
 const openModal = (user) => {
-  selectedUser.value = user
-  editedUser.value = { ...user }  // Sao chép để không làm thay đổi trực tiếp
-  showModal.value = true
+  if (user) {
+    selectedUser.value = user
+    editedUser.value = {
+      ...user,
+      dateOfBirth: formatDate(user.dateOfBirth),
+    }  // Sao chép để không làm thay đổi trực tiếp
+    showModal.value = true
+  } else {
+    selectedUser.value = null;
+    editedUser.value = {
+      id: null,
+      username: '',
+      firstName: '',
+      lastName: '',
+      email: '',
+      phoneNumber: '',
+      dateOfBirth: formatDate(editedUser.value.dateOfBirth),
+      isActive: true,
+      isVerify: false,
+      roles: [],
+    };
+  }
+  showModal.value = true;
 }
 
 // Đóng modal
@@ -234,16 +279,40 @@ const closeModal = () => {
 // Cập nhật thông tin user
 const updateUser = async () => {
   try {
-    const token = Cookies.get('accessToken')
-    const response = await Axios.put(`/api/users/update/${editedUser.value.id}`, editedUser.value, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
-    const updatedUser = response.data;
-    const index = users.value.findIndex((user) => user.id === updatedUser.id);
-    if (index !== -1) {
-      users.value[index] = updatedUser;
+    const token = Cookies.get("accessToken");
+
+    // Chuyển ngày từ dd/MM/yyyy về định dạng ISO
+    const [day, month, year] = editedUser.value.dateOfBirth.split("/");
+    const formattedDate = new Date(`${year}-${month}-${day}`).toISOString();
+    editedUser.value.dateOfBirth = formattedDate;
+
+    let response;
+    if (!selectedUser.value) {
+      // Thêm mới user
+      alertMessagePassword.value = "";
+      editedUser.value.password = "123456"
+      response = await Axios.post('/api/users/add', editedUser.value);
+      setTimeout(() => {
+        alertMessagePassword.value = "password mặc định là '123456'";
+        alertTypeMessagePassword.value = "warning";
+      }, 0);
+      console.log(response)
+    }
+    else {
+      const response = await Axios.put(`/api/users/update/${editedUser.value.id}`, editedUser.value,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      const updatedUser = response.data;
+      const index = users.value.findIndex((user) => user.id === updatedUser.id);
+      if (index !== -1) {
+        users.value[index] = updatedUser;
+      }
+
     }
 
     alertMessage.value = "";
@@ -255,11 +324,29 @@ const updateUser = async () => {
     closeModal()
   } catch (error) {
     console.error('Cập nhật thất bại:', error)
-    alertMessage.value = "Đã xảy ra lỗi khi cập nhật!";
-    alertType.value = "danger";
+    alertMessage.value = "";
+    setTimeout(() => {
+      alertMessage.value = "Đã xảy ra lỗi khi cập nhật!";
+      alertType.value = "danger";
+    }, 0);
   }
 }
 
+function validateDate(event) {
+  const input = event.target.value;
+
+  //regex định dạng ngày
+  const regex = /^(\d{2})\/(\d{2})\/(\d{4})$/;
+  if (!regex.test(input)) {
+    alertMessage.value = "";
+    setTimeout(() => {
+      alertMessage.value = "Ngày không hợp lệ. Vui lòng nhập theo định dạng dd/MM/yyyy.";
+      alertType.value = "danger";
+    }, 0)
+  } else {
+    alertMessage.value = "";
+  }
+}
 </script>
 <style scoped>
 input[type="radio"] {
@@ -271,5 +358,9 @@ input[type="radio"] {
   background-color: white;
   border-radius: 10px;
   padding: 20px;
+}
+
+.search-width {
+  width: 140px;
 }
 </style>
