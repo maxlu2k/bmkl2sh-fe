@@ -1,20 +1,28 @@
 <template>
   <div>
     <div class="list-users">
-      <div class="row">
-        <div class="col-8">
-          <h5><b>All Users</b></h5>
-        </div>
-        <div class="col-4 text-end d-flex">
+      <h5><b>All Users</b></h5>
+      <hr>
+      <div class="row search-row">
+        <div class="col-7 d-flex">
           <input class="form-control search-width me-2" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-success me-2" type="submit">Search</button>
+          <!-- <button class="btn btn-outline-success me-2" type="submit">Search</button> -->
           <button class="btn btn-outline-primary text-decoration-none" @click="openModal(null)"><span
-              aria-hidden="true">&#43;</span>
+              aria-hidden="true"><i class="bi bi-patch-plus"></i></span>
             Add</button>
+          <button class="btn btn-outline-success text-decoration-none" @click="openModal(null)"><span
+              aria-hidden="true"><i class="bi bi-file-earmark-excel"></i></span>
+            Import</button>
+        </div>
+        <div class="col-5 text-end ">
+          <div class="text-end">
+            <input type="checkbox" class="btn-check" v-model="isDarkMode" id="btn-check-outlined" autocomplete="off">
+            <label class="btn btn-outline-dark rounded-circle" for="btn-check-outlined"><i
+                class="bi bi-moon-stars-fill"></i></label>
+          </div>
         </div>
       </div>
-      <hr>
-      <table class="table table-striped">
+      <table :class="['table', 'table-striped', modeClass]">
         <thead>
           <tr>
             <th scope="col">ID</th>
@@ -165,6 +173,12 @@ import Cookies from 'js-cookie'
 import MyModal from '@/components/MyModal.vue'
 import AlertMessage from "@/components/AlertMessage.vue";
 import { format } from "date-fns";
+
+// Trạng thái dark mode
+const isDarkMode = ref(false);
+
+// Tính toán class mode dựa trên trạng thái
+const modeClass = computed(() => (isDarkMode.value ? 'table-dark' : 'table-light'));
 const users = ref([])
 const showModal = ref(false)
 const selectedUser = ref({})
@@ -361,6 +375,10 @@ input[type="radio"] {
 }
 
 .search-width {
-  width: 140px;
+  width: 180px;
+}
+
+.search-row {
+  margin-bottom: 10px;
 }
 </style>

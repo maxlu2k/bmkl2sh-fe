@@ -84,19 +84,18 @@ const router = createRouter({
     //   component: viewAdminAllUser,
     //   meta: { title: 'Quản lý user', requiresAuth: true, role: 'ADMIN' },
     // },
-
-    {
-      path: '/user',
-      name: 'viewUserProfile',
-      component: viewProfile,
-      meta: { title: 'User profile', requiresAuth: true },
-    },
-
     {
       path: '/user-profile',
       name: 'viewUserProfile',
       component: viewProfile,
       meta: { title: 'User', requiresAuth: true },
+      children: [
+        {
+          path: 'userEditProfile',
+          name: 'viewUserEditProfile',
+          component: viewEditProfile,
+        },
+      ],
     },
   ],
 })
