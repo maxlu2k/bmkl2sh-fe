@@ -13,4 +13,9 @@ export default defineConfig({
   server: {
     port: 3000,
   },
+  build: {
+    outDir: 'dist', // Đảm bảo thư mục build ra đúng tên
+    assetsDir: 'assets', // Lưu tài nguyên trong dist/assets
+    emptyOutDir: true, // Xóa dist trước khi build lại
+  },
 })
