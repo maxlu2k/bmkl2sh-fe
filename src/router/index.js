@@ -9,6 +9,7 @@ import viewAdminAllBills from '@/views/admin/content/view-admin-bills.vue'
 import viewAdminAuthorize from '@/views/admin/content/view-admin-authorize.vue'
 import viewEditProfile from '@/views/user/content/edit-profile-user.vue'
 import viewProfile from '@/views/user/layout/slidebar-user-profile.vue'
+import NotFoundView from '@/components/NotFoundView.vue'
 import Cookies from 'js-cookie'
 import { jwtDecode } from 'jwt-decode'
 
@@ -96,6 +97,12 @@ const router = createRouter({
           component: viewEditProfile,
         },
       ],
+    },
+    {
+      path: '/:catchAll(.*)',
+      name: 'notFound',
+      component: NotFoundView,
+      meta: { title: '404 Not Found' },
     },
   ],
 })
