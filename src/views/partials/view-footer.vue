@@ -36,7 +36,7 @@
   width: 100%;
   position: relative;
   height: auto;
-  background-color: #212529;
+  background-color: orangered;
   display: flex;
   flex-direction: column;
 }
@@ -58,7 +58,7 @@
   font-size: 12px;
   line-height: 17px;
   padding: 20px 0px 5px 0px;
-  color: rgba(255, 255, 255, 0.2);
+  color: white;
   font-weight: normal;
   text-transform: uppercase;
   letter-spacing: 0.25em;

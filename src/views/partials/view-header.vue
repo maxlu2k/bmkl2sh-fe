@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+  <nav class="navbar navbar-expand-lg sticky-top">
     <div class="container-fluid">
       <a class="navbar-brand" href="#">MY BLOG</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll"
@@ -59,6 +59,11 @@ const logout = () => {
 </script>
 
 <style scoped>
+.navbar{
+  background-color:beige;
+  border: 1px solid orangered;
+}
+
 .header_infor p {
   padding-left: 10px;
   margin: 0;
@@ -75,15 +80,4 @@ const logout = () => {
   border-radius: 50%;
 }
 
-.btnAccHeader {
-  min-width: 100px;
-  border: 2px solid #9b9b02;
-  border-radius: 6px;
-  background-color: #212529;
-  color: white;
-}
-
-.btnAccHeader:hover {
-  border: 2px solid yellow;
-}
 </style>
