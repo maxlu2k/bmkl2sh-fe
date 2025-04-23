@@ -1,6 +1,6 @@
 <template>
   <nav class="navbar navbar-expand-lg sticky-top">
-    <div class="container-fluid">
+    <div class="container container-fluid">
       <a class="navbar-brand" href="#">MY BLOG</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll"
         aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
@@ -59,8 +59,8 @@ const logout = () => {
 </script>
 
 <style scoped>
-.navbar{
-  background-color:beige;
+.navbar {
+  background-color: beige;
   border: 1px solid orangered;
 }
 
@@ -79,5 +79,4 @@ const logout = () => {
   max-width: 40px;
   border-radius: 50%;
 }
-
 </style>

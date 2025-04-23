@@ -1,36 +1,37 @@
 <template>
   <div class="footer">
-    <div class="contain">
-      <div class="col">
-        <h1>MaxLu$</h1>
+    <div class="container">
+      <div class="col col-4">
+        <h1>Thông tin liên hệ</h1>
         <ul>
-          <li>About Me</li>
-          <li>Technology</li>
-          <li>Contact</li>
-        </ul>
-      </div>
-      <div class="col">
-        <h1>Contact</h1>
-        <ul>
-          <li>Address: Hà Nội</li>
+          <li>Dụng cụ cơ khí</li>
+          <li>Địa chỉ: 123 Phố Nhổn Hà Nội</li>
+          <li>Điện thoại: 09472727345</li>
           <li>Email: MaxLus@gmail.com</li>
-          <li>Zalo: (+84)36 999 2515</li>
-          <li>Phone number: (+84)36 999 2515</li>
         </ul>
       </div>
-      <div class="col social">
-        <h1>Social</h1>
+      <div class="col col-4">
+        <h1>Giới thiệu công ty</h1>
         <ul>
-          <li><a href="https://www.facebook.com/manhdung2711/">a</a></li>
-          <li><img src="" width="32" style="width: 32px" /></li>
-          <li><img src="" width="32" style="width: 32px" /></li>
+          <li>Điện Máy Bình Minh</li>
+          <li>Chính sách nhận hàng</li>
+          <li>Chính sách mua hàng</li>
+          <li>Hướng dẫn mua hàng</li>
+          <li>Hướng dẫn thanh toán</li>
         </ul>
+      </div>
+      <div class="col col-4 social">
+        <h1>Facebook</h1>
+        <iframe
+          src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2Fnguyendinhmanhdung&tabs=timeline&width=400&height=200&small_header=true&adapt_container_width=true&hide_cover=true&show_facepile=false&appId=336285204533915"
+          width="400" height="200" style="border:none;overflow:hidden" scrolling="no" frameborder="0"
+          allowfullscreen="true"
+          allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
       </div>
       <div class="clearfix"></div>
     </div>
   </div>
 </template>
-
 <style scoped>
 .footer {
   width: 100%;
@@ -42,7 +43,6 @@
 }
 
 .footer .col {
-  width: 390px;
   height: auto;
   float: left;
   box-sizing: border-box;
@@ -55,7 +55,7 @@
   margin: 0;
   padding: 0;
   font-family: inherit;
-  font-size: 12px;
+  font-size: 15px;
   line-height: 17px;
   padding: 20px 0px 5px 0px;
   color: white;
@@ -110,6 +110,7 @@
     width: 1000px;
     display: block;
   }
+
   .social h1 {
     margin: 0px;
   }
@@ -119,9 +120,11 @@
   .footer .col {
     width: 33%;
   }
+
   .footer .col h1 {
     font-size: 14px;
   }
+
   .footer .col ul li {
     font-size: 13px;
   }
@@ -131,9 +134,11 @@
   .footer .col {
     width: 50%;
   }
+
   .footer .col h1 {
     font-size: 14px;
   }
+
   .footer .col ul li {
     font-size: 13px;
   }
