@@ -30,6 +30,7 @@
         <hr>
 
         <!-- Danh sách sản phẩm -->
+        <div> <a href="">Sản phẩm</a> \ <a href="">laptop</a></div>
         <div class="product-grid">
           <div v-for="(product, index) in products" :key="index" class="product-card-container">
             <div class="card product-card">
@@ -110,6 +111,7 @@ const products = ref(
   grid-template-columns: repeat(5, 1fr);
   gap: 20px;
   margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 .product-card-container {
