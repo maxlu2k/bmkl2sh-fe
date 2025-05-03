@@ -3,34 +3,78 @@
     <div class="row">
       <!-- Sidebar -->
       <aside class="col-2 sidebar">
-        <div class="dropdown">
-          <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown">Danh mục</a>
-          <ul class="dropdown-menu">
-            <li class="dropdown-item">Máy móc</li>
-            <li class="dropdown-item">Máy hàn 1</li>
-            <li class="dropdown-item">Máy hàn 2</li>
-          </ul>
+        <div class="accordion" id="sidebarMenu">
+          <!-- Chủ đề 1 -->
+          <div v-for="(product, index) in products" :key="index" class="accordion-item">
+            <h2 class="accordion-header" :id="'heading' + index">
+              <button
+                class="accordion-button collapsed"
+                type="button"
+                data-bs-toggle="collapse"
+                :data-bs-target="'#collapse' + index"
+                :aria-expanded="false"
+                :aria-controls="'collapse' + index"
+              >
+                {{ product.name }}
+              </button>
+            </h2>
+            <div
+              :id="'collapse' + index"
+              class="accordion-collapse collapse"
+              :aria-labelledby="'heading' + index"
+              data-bs-parent="#sidebarMenu"
+            >
+              <div class="accordion-body p-2">
+                <ul class="list-unstyled">
+                  <li>
+                    <a href="#" class="text-decoration-none">{{ product.price }}</a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <!-- Chủ đề 2 -->
+          <!-- <div class="accordion-item">
+            <h2 class="accordion-header" id="headingTwo">
+              <button
+                class="accordion-button collapsed"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#collapseTwo"
+              >
+                Chủ đề 2
+              </button>
+            </h2>
+            <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#sidebarMenu">
+              <div class="accordion-body p-2">
+                <ul class="list-unstyled">
+                  <li><a href="#" class="text-decoration-none">Mục con A</a></li>
+                  <li><a href="#" class="text-decoration-none">Mục con B</a></li>
+                </ul>
+              </div>
+            </div>
+          </div> -->
         </div>
         <div class="card contactHeader mt-3">
           <a href="#" class="btn"><i class="bi bi-telephone"></i> 0123456789</a>
           <a href="#" class="btn"><i class="bi bi-facebook"></i> Facebook</a>
           <a href="#" class="btn"><i class="bi bi-youtube"></i> Youtube</a>
         </div>
-        <img src="/img/orangeimg.gif" class="rounded img-fluid imgHeader mt-2" alt="...">
+        <img src="/img/orangeimg.gif" class="rounded img-fluid imgHeader mt-2" alt="..." />
       </aside>
 
       <!-- Main Content -->
       <div class="col-10 main-content">
         <!-- Banner -->
         <div class="banner-container">
-          <img src="/img/casino.jpg" alt="" class="bannercasino">
+          <img src="/img/casino.jpg" alt="" class="bannercasino" />
           <a href="/login" class="btn btn-success buynow">PLAY NOW &#10155;</a>
         </div>
 
-        <hr>
+        <hr />
 
         <!-- Danh sách sản phẩm -->
-        <div> <a href="">Sản phẩm</a> \ <a href="">laptop</a></div>
+        <div><a href="">Sản phẩm</a> \ <a href="">laptop</a></div>
         <div class="product-grid">
           <div v-for="(product, index) in products" :key="index" class="product-card-container">
             <div class="card product-card">
@@ -43,22 +87,21 @@
             </div>
           </div>
         </div>
-
       </div>
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref } from 'vue'
 
 const products = ref(
   Array.from({ length: 25 }, (_, i) => ({
     name: `Sản phẩm ${i + 1}`,
     price: `${(i + 1) * 50}.000`,
     image: `/img/product${(i % 5) + 1}.jpg`,
-  }))
-);
+  })),
+)
 </script>
 
 <style scoped>
@@ -76,8 +119,14 @@ const products = ref(
 /* Sidebar */
 .sidebar {
   background-color: orangered;
-  padding: 20px;
+  margin: 0px;
+  padding: 0px;
   min-height: 100vh;
+}
+/* main_menu */
+.main_menu {
+  padding: 0px;
+  margin: 0px;
 }
 
 /* Banner */
